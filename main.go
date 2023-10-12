@@ -51,7 +51,8 @@ func getHello(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", getRoot)
+	fs := http.FileServer(http.Dir("./frontend"))
+	mux.Handle("/", fs)
 	mux.HandleFunc("/hello", getHello)
 
 	ctx := context.Background()
