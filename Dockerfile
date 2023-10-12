@@ -15,8 +15,13 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
     ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /app/server /app/server
+RUN useradd -ms /bin/bash newuser
 
 EXPOSE 3333
+
+USER newuser
+WORKDIR /home/newuser
+
+COPY --from=builder /app/server /app/server
 
 CMD ["/app/server"]

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-application
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: go-application
+  template:
+    metadata:
+      labels:
+        run: go-application
+    spec:
+      containers:
+      - name: go-application
+        image: docker.io/anaisurlichs/go-server:0.2
+        ports:
+          - containerPort: 3333
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: 200m
+        securityContext:
+          allowPrivilegeEscalation: false

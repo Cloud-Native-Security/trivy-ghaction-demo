@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-application
+  labels:
+    run: go-application
+spec:
+  type: NodePort
+  ports:
+  - port: 3333
+    targetPort: 3333
+    protocol: TCP
+    name: http
+  selector:
+    run: go-application
