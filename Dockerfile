@@ -5,23 +5,13 @@ WORKDIR /app
 COPY go.* ./
 RUN go mod download
 
-COPY . ./
+COPY main.go ./main.go
+COPY ./frontend ./frontend
 
 RUN go build -v -o server
-
-
-FROM debian:buster-slim
-RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    ca-certificates && \
-    rm -rf /var/lib/apt/lists/*
 
 RUN useradd -ms /bin/bash newuser
 
 EXPOSE 3333
-
-USER newuser
-WORKDIR /home/newuser
-
-COPY --from=builder /app/server /app/server
 
 CMD ["/app/server"]

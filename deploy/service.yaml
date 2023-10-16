@@ -5,9 +5,8 @@ metadata:
   labels:
     run: go-application
 spec:
-  type: NodePort
   ports:
-  - port: 3333
+  - port: 80
     targetPort: 3333
     protocol: TCP
     name: http
